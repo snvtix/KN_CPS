@@ -8,14 +8,14 @@ class MyTopBlock(gr.top_block):
 
         # Parametry sygnału
         amplitude = 1
-        frequency = 2850  # 1 MHz
+        frequency = 5128
         sample_rate = 2e6  # 2 MHz
 
         # Tworzenie generującego sygnał bloku
         source = analog.sig_source_f(sample_rate, analog.GR_SIN_WAVE, frequency, amplitude)
 
         # Tworzenie wektora z informacją (0 i 1)
-        information_vector = [1] * 700 + [0] * 700 + [0] * 700 + [1] * 700
+        information_vector = [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 780 + [1] * 750 + [0] * 7660
 
         # Tworzenie bloku mnożącego przez stałą z początkową wartością 1
         multiply_block = blocks.multiply_ff()
@@ -27,7 +27,7 @@ class MyTopBlock(gr.top_block):
         head_block = blocks.head(gr.sizeof_float, len(information_vector))
 
         # Tworzenie bloku zapisującego do pliku CSV
-        file_sink = blocks.file_sink(gr.sizeof_float, 'o.bin', False)
+        file_sink = blocks.file_sink(gr.sizeof_float, 'o.raw', False)
 
         # Łączenie bloków
         self.connect(source, (multiply_block,0))
